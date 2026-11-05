@@ -1,0 +1,56 @@
+@baseUrl = http://localhost:3000/api
+# Dán token sau khi login vào đây
+@accessToken = paste_access_token_here
+@refreshToken = paste_refresh_token_here
+
+### Register
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "username": "minh",
+  "email": "minh@example.com",
+  "password": "123456"
+}
+
+### Login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "minh@example.com",
+  "password": "123456"
+}
+
+### Login ADMIN (sau khi chạy npm run seed:admin)
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@example.com",
+  "password": "admin123"
+}
+
+### Thông tin user hiện tại
+GET {{baseUrl}}/users/me
+Authorization: Bearer {{accessToken}}
+
+### Danh sách user (chỉ ADMIN, USER sẽ nhận 403)
+GET {{baseUrl}}/users
+Authorization: Bearer {{accessToken}}
+
+### Refresh token
+POST {{baseUrl}}/auth/refresh-token
+Content-Type: application/json
+
+{
+  "refreshToken": "{{refreshToken}}"
+}
+
+### Logout
+POST {{baseUrl}}/auth/logout
+Content-Type: application/json
+
+{
+  "refreshToken": "{{refreshToken}}"
+}
